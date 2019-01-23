@@ -3,9 +3,9 @@ const fetch = require('node-fetch');
 const movieAPIKey = require('../keys.js').movie
 const movieAPIUrl = "http://www.omdbapi.com/?t="
 
-const parseMovieResponse = function(res) {
+const movieController = require('../controllers/movieController.js')
 
-}
+const parseMovieResponse = function(res) {}
 
 const lookupMovie = function(req, res) {
   console.log('heeeey this is the test endpoint for movies')
@@ -25,24 +25,27 @@ const lookupMovie = function(req, res) {
   // })
 }
 
-const allFavorites = function(req. res) {
-  console.log('getting all movies ...')
+const allFavorites = function(req, res) {
   // get list of all favorites from database
+  movieController.listFavoriteMovies()
+  // .then(() => {
+  //   res.sendStatus(200)
+  // })
 }
 
 const saveFavorite = function(req, res) {
-  console.log('saving a movie as favorite ...')
   // save a movie to the database
+  movieController.addFavoriteMovie()
 }
 
 const updateRating = function(req, res) {
-  console.log('update a movie rating ...')
   // update a movie's rating
+  movieController.updateRating()
 }
 
 const removeFavorite = function(req, res) {
-  console.log('remove a movie from favorite list ...')
   // remove a movie from the list of favorites
+  movieController.deleteRating()
 }
 
 const movieRouter = function(express) {
@@ -50,8 +53,8 @@ const movieRouter = function(express) {
 
   movieRouter.get('/', allFavorites)
   movieRouter.post('/', saveFavorite)
-  movieRouter.update('/', updateRating)
-  movieRouter.delete('/'. removeFavorite)
+  movieRouter.put('/', updateRating)
+  movieRouter.delete('/', removeFavorite)
 
   movieRouter.get('/fetch/:title/', lookupMovie)
 
