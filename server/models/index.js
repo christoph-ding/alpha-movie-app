@@ -11,3 +11,5 @@ Movie(sequelize);
 
 const models = sequelize.models;
 sequelize.sync();
+
+module.exports = sequelize;

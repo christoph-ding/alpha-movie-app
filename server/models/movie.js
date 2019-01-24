@@ -4,7 +4,8 @@ module.exports = function(sequelize) {
   const Movie = sequelize.define('Movie', {
     title: {
       type: Sequelize.STRING,
-      unique: true
+      unique: true,
+      allowNull: false
     },
     poster: Sequelize.STRING,
     year: Sequelize.STRING,

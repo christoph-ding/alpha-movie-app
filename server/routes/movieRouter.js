@@ -26,17 +26,23 @@ const lookupMovie = function(req, res) {
 }
 
 const allFavorites = function(req, res) {
-  // get list of all favorites from database
   movieController.listFavoriteMovies()
-  .then(() => {
-    console.log('promise done ...')
-    res.sendStatus(200)
+  .then((data) => {
+    res.status(200).json(data)
+  })
+  .catch((err) => {
+    res.status(400).send(err)
   })
 }
 
 const saveFavorite = function(req, res) {
-  // save a movie to the database
   movieController.addFavoriteMovie()
+  .then((data) => {
+    res.sendStatus(201)
+  })
+  .catch((err) => {
+    res.status(400).send(err)
+  }) 
 }
 
 const updateRating = function(req, res) {
