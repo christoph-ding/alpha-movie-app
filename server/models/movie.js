@@ -1,6 +1,6 @@
-import Sequelize from 'sequelize';
+const Sequelize = require('sequelize');
 
-export default function (sequelize) {
+module.exports = function(sequelize) {
   const Movie = sequelize.define('Movie', {
     title: {
       type: Sequelize.STRING,
@@ -12,26 +12,3 @@ export default function (sequelize) {
     rating: Sequelize.INTEGER,
   })
 }
-
-// const Event = sequelize.define('Event', {
-//   date: Sequelize.STRING,
-//   name: {
-//     type: Sequelize.STRING,
-//     unique: true
-//   },
-//   description: Sequelize.STRING,
-//   createdAt: {
-//       type: 'TIMESTAMP',
-//       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-//       allowNull: false
-//   },
-//   updatedAt: {
-//       type: 'TIMESTAMP',
-//       defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-//       allowNull: false
-//   } 
-// })
-
-// Event.associate = (models) => {
-//   Event.belongsTo(models.Organization)
-// }

@@ -28,9 +28,10 @@ const lookupMovie = function(req, res) {
 const allFavorites = function(req, res) {
   // get list of all favorites from database
   movieController.listFavoriteMovies()
-  // .then(() => {
-  //   res.sendStatus(200)
-  // })
+  .then(() => {
+    console.log('promise done ...')
+    res.sendStatus(200)
+  })
 }
 
 const saveFavorite = function(req, res) {

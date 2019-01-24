@@ -1,5 +1,9 @@
 const listFavoriteMovies = function() {
   console.log('getting all movies ...')
+  return new Promise(function(resolve, reject) {
+    console.log('inside promise ...')
+    resolve()
+  })
 }
 
 const addFavoriteMovie = function() {
