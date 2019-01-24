@@ -58,8 +58,14 @@ const updateRating = function(req, res) {
 }
 
 const removeFavorite = function(req, res) {
-  // remove a movie from the list of favorites
-  movieController.deleteRating()
+  let removeParams = req.body
+  movieController.deleteRating(removeParams)
+  .then(() => {
+    res.sendStatus(200)
+  })
+  .catch((err) => {
+    res.status(400).send(err)
+  })
 }
 
 const movieRouter = function(express) {

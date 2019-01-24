@@ -72,8 +72,23 @@ const updateRating = function(updateParams) {
   })
 }
 
-const deleteRating = function() {
-  console.log('remove a movie from favorite list ...')
+const deleteRating = function(removeParams) {
+  return new Promise(function(resolve, reject) {
+    if (!(validMovie(removeParams))) {
+      const errorMsg = "Movies must have a title"
+      reject(errorMsg)
+    }
+
+    movie.destroy({
+      where: {title: removeParams.title}
+    })
+    .then(() => {
+      resolve()
+    })
+    .catch((err) => {
+      reject(err)
+    })
+  })
 }
 
 module.exports = {
