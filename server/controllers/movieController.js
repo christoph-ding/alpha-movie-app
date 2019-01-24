@@ -18,16 +18,32 @@ const listFavoriteMovies = function() {
   })
 }
 
-const addFavoriteMovie = function() {
-  console.log('saving a movie as favorite ...')
+const validMovie = function(movieParams) {
+  // movies must have titles
+  // we can add more rules here!
+  return ('title' in movieParams && 
+          movieParams.title.length > 0)
+}
+
+const addFavoriteMovie = function(newMovieParams) {
   return new Promise(function(resolve, reject) {
-    const newMovie = {
-      title: "test2"
+    if (!(validMovie(newMovieParams))) {
+      const errorMsg = "Movies must have a title"
+      reject(errorMsg)
     }
+
+    const movieTemplate = {
+      title: null,
+      poster: null,
+      year: null,
+      plot: null,
+      rating: null  
+    }
+
+    const newMovie = Object.assign(movieTemplate, newMovieParams)
 
     movie.create(newMovie)
     .then((data) => {
-      console.log('done creating')
       resolve(data)
     })
     .catch((err) => {
@@ -36,8 +52,24 @@ const addFavoriteMovie = function() {
   })
 }
 
-const updateRating = function() {
-  console.log('update a movie rating ...')
+const updateRating = function(updateParams) {
+  return new Promise(function(resolve, reject) {
+    if (!(validMovie(updateParams))) {
+      const errorMsg = "Movies must have a title"
+      reject(errorMsg)
+    }
+
+    movie.update(
+      {rating: updateParams.rating},
+      {where: {title: updateParams.title}}
+    )
+    .then(() => {
+      resolve()
+    })
+    .catch((err) => {
+      reject(err)
+    })
+  })
 }
 
 const deleteRating = function() {

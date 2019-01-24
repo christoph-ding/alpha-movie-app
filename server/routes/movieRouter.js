@@ -36,18 +36,25 @@ const allFavorites = function(req, res) {
 }
 
 const saveFavorite = function(req, res) {
-  movieController.addFavoriteMovie()
+  let newMovieParams = req.body
+  movieController.addFavoriteMovie(newMovieParams)
   .then((data) => {
     res.sendStatus(201)
   })
   .catch((err) => {
     res.status(400).send(err)
-  }) 
+  })
 }
 
 const updateRating = function(req, res) {
-  // update a movie's rating
-  movieController.updateRating()
+  let updateParams = req.body
+  movieController.updateRating(updateParams)
+  .then(() => {
+    res.sendStatus(200)
+  })
+  .catch((err) => {
+    res.status(400).send(err)
+  })
 }
 
 const removeFavorite = function(req, res) {
