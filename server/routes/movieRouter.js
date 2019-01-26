@@ -10,19 +10,23 @@ const parseMovieResponse = function(res) {}
 const lookupMovie = function(req, res) {
   console.log('heeeey this is the test endpoint for movies')
   console.log('params: ', req.params)
+  const title = req.params.title
+  const movieAPIRequestEndpoint = `${movieAPIUrl}${title}&apikey=${movieAPIKey}`
 
-  const movieAPIRequestEndpoint = `${movieAPIUrl}the+thing&apikey=${movieAPIKey}`
-
-  console.log(movieAPIRequestEndpoint)
-
-  // fetch(movieAPIRequestEndpoint)
-  // .then((res) => {
-  //   console.log(res)
-  //   res.sendStatus(200)  
-  // })
-  // .catch((err) => {
-  //   console.log('err: ', err)
-  // })
+  fetch(movieAPIRequestEndpoint)
+  .then((data) => {
+    // var buf = Buffer.from(JSON.stringify(data));
+    // console.log(data.json())
+    // res.status(200).send(data)
+    return data.json()
+  })
+  .then(test => {
+    console.log(test)
+    res.status(200).send(test)
+  })
+  .catch((err) => {
+    console.log('err: ', err)
+  })
 }
 
 const allFavorites = function(req, res) {
@@ -71,11 +75,13 @@ const removeFavorite = function(req, res) {
 const movieRouter = function(express) {
   const movieRouter = express.Router();
 
+  // CRUD for movies
   movieRouter.get('/', allFavorites)
   movieRouter.post('/', saveFavorite)
   movieRouter.put('/', updateRating)
   movieRouter.delete('/', removeFavorite)
 
+  // getting movie info from 3rd party api
   movieRouter.get('/fetch/:title/', lookupMovie)
 
   return movieRouter

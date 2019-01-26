@@ -1,6 +1,15 @@
 const sequelize = require('../models/index.js');
 const movie = sequelize.models.Movie
 
+// helper functions - I would move this out if there were more than 1 
+const validMovie = function(movieParams) {
+  // movies must have titles
+  // we can add more rules here!
+  return ('title' in movieParams && 
+          movieParams.title.length > 0)
+}
+
+// CRUD operations
 const listFavoriteMovies = function() {
   return new Promise(function(resolve, reject) {
     movie.findAll({})
@@ -16,13 +25,6 @@ const listFavoriteMovies = function() {
       reject(err)      
     })
   })
-}
-
-const validMovie = function(movieParams) {
-  // movies must have titles
-  // we can add more rules here!
-  return ('title' in movieParams && 
-          movieParams.title.length > 0)
 }
 
 const addFavoriteMovie = function(newMovieParams) {
