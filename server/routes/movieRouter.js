@@ -8,24 +8,18 @@ const movieController = require('../controllers/movieController.js')
 const parseMovieResponse = function(res) {}
 
 const lookupMovie = function(req, res) {
-  console.log('heeeey this is the test endpoint for movies')
-  console.log('params: ', req.params)
   const title = req.params.title
   const movieAPIRequestEndpoint = `${movieAPIUrl}${title}&apikey=${movieAPIKey}`
 
   fetch(movieAPIRequestEndpoint)
   .then((data) => {
-    // var buf = Buffer.from(JSON.stringify(data));
-    // console.log(data.json())
-    // res.status(200).send(data)
     return data.json()
   })
-  .then(test => {
-    console.log(test)
-    res.status(200).send(test)
+  .then(data => {
+    res.status(200).send(data)
   })
   .catch((err) => {
-    console.log('err: ', err)
+    res.status(400).send(err)
   })
 }
 
